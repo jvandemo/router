@@ -271,7 +271,7 @@ export class Router {
    * whether this router and all the descendants can navigate
    */
   canNavigate(context) {
-    return Promise.all(this.gatherNagigationPredicates(context))
+    return Promise.all(this.gatherNavigationPredicates(context))
                   .then(booleanReduction);
   }
 
@@ -281,9 +281,9 @@ export class Router {
    * returns an Array<Promise<bool>> that represents
    * whether this router and all the descendants can navigate
    */
-  gatherNagigationPredicates(context) {
+  gatherNavigationPredicates(context) {
     return this.children.reduce(
-        (promises, child) => promises.concat(child.gatherNagigationPredicates(context)),
+        (promises, child) => promises.concat(child.gatherNavigationPredicates(context)),
         [this.navigationPredicate(context)]
     );
   }
