@@ -17,7 +17,7 @@ You can configure multiple viewports on the same path like this:
 ```js
 $router.config([
   { path: '/user',
-    components: {
+    component: {
       master: 'userList',
       detail: 'user'
   } }
