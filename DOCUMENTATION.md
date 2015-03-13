@@ -17,7 +17,7 @@ The script first checks to see if the tag matches `v[0-9]+,[0-9]+,[0-9]+)`:
 
 To provide Travis CI with rights to deploy the newly generated documentation to GitHub, we need to provide it with a GitHub token that represents an account that has sufficient rights to push to the repository.
 
-#### Step 1: create GitHub token
+#### Step 1: create a GitHub token
 
 To generate a new personal access token in GitHub, go to *Personal settings / Applications* and click on *Generate new token* in the *Personal access tokens* section of the page.
 
@@ -25,13 +25,7 @@ Give it an appropriate description such as "Documentation deployment token for r
 
 Finally copy the generated token that GitHub presents on your screen. It is important to copy it right now because it is only shown once and you'll have to regenerate a new one if you forget it.
 
-#### Step 2: enable your repository in Travis CI
-
-Open the repositories tab on your accounts pages and toggle the switch next to your repository to enable Travis support for that repository.
-
-> If your repository is not in the list, click the Sync now button to let Travis fetch all latest data from GitHub.
-
-#### Step 3: tell Travis to use the token
+#### Step 2: tell Travis to use the token
 
 Travis offers a really convenient feature where it lets you define environment variables to customize the build process.
 
@@ -43,7 +37,7 @@ To add encryped environment variables to your `.travis.yml` file, you can:
 $ gem install travis
 $ cd router
 $ travis encrypt GITHUB_TOKEN=secret-token-from-step-1 --add
-```
+``
 
 This will add a line to the `.travis.yml` file that looks like this:
 
