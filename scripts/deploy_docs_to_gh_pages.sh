@@ -9,8 +9,8 @@ ORIGIN_URL_WITH_CREDENTIALS=${ORIGIN_URL/\/\/github.com/\/\/$GITHUB_TOKEN@github
 
 echo "Building new documentation"
 mkdir $TEMP_DIRECTORY || exit 1
-gulp dgeni
-cp -r ./dist/docs/* $TEMP_DIRECTORY
+gulp dgeni || exit 1
+cp -r ./dist/docs/* $TEMP_DIRECTORY || exit 1
 cp .gitignore $TEMP_DIRECTORY || exit 1
 
 echo "Checking out gh-pages branch"
