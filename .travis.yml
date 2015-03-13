@@ -20,3 +20,11 @@ install:
 
 script:
   - ./scripts/test_on_sauce.sh
+
+after_succes:
+  - ./scripts/deploy_docs_to_gh_pages.sh
+
+env:
+  global:
+    - secure: FaPs4D9IsIvYSbm4fCXG4SIoB3SXzxWl8E5YhCDbd6q4ty++DxsUrTzdinafgbbMVQSqIhsnjeYPvO6h9JQcWh2enor5OPlFvAZqEw0++wsHfOwkYnO9XoS55isO5dZjw9sm705ymrJDRF8rhyfVzuptWGxZLfTynLR0IzWUUFw=
+
