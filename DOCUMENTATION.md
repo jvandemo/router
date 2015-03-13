@@ -37,7 +37,7 @@ To add encryped environment variables to your `.travis.yml` file, you can:
 $ gem install travis
 $ cd router
 $ travis encrypt GITHUB_TOKEN=secret-token-from-step-1 --add
-``
+```
 
 This will add a line to the `.travis.yml` file that looks like this:
 
