@@ -9,6 +9,7 @@ env:
     - LOGS_DIR=/tmp/angular-router-build/logs
     - SAUCE_USERNAME=angular-ci
     - SAUCE_ACCESS_KEY=9b988f434ff8-fbca-8aa4-4ae3-35442987
+    - secure: FaPs4D9IsIvYSbm4fCXG4SIoB3SXzxWl8E5YhCDbd6q4ty++DxsUrTzdinafgbbMVQSqIhsnjeYPvO6h9JQcWh2enor5OPlFvAZqEw0++wsHfOwkYnO9XoS55isO5dZjw9sm705ymrJDRF8rhyfVzuptWGxZLfTynLR0IzWUUFw=
 
 install:
   - mkdir -p $LOGS_DIR
@@ -23,8 +24,3 @@ script:
 
 after_succes:
   - ./scripts/deploy_docs_to_gh_pages.sh
-
-env:
-  global:
-    - secure: FaPs4D9IsIvYSbm4fCXG4SIoB3SXzxWl8E5YhCDbd6q4ty++DxsUrTzdinafgbbMVQSqIhsnjeYPvO6h9JQcWh2enor5OPlFvAZqEw0++wsHfOwkYnO9XoS55isO5dZjw9sm705ymrJDRF8rhyfVzuptWGxZLfTynLR0IzWUUFw=
-
