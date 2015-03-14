@@ -39,6 +39,8 @@ $ cd router
 $ travis encrypt GITHUB_TOKEN=secret-token-from-step-1 --add
 ```
 
+> On Mac OSX you may have to install the latest version of Ruby first: `brew install ruby`.
+
 This will add a line to the `.travis.yml` file that looks like this:
 
 ```sh
