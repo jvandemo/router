@@ -1,26 +1,21 @@
 language: node_js
-
 node_js:
-  - 0.10
-
+- 0.1
 env:
   global:
-    - BROWSER_PROVIDER_READY_FILE=/tmp/sauce-connect-ready
-    - LOGS_DIR=/tmp/angular-router-build/logs
-    - SAUCE_USERNAME=angular-ci
-    - SAUCE_ACCESS_KEY=9b988f434ff8-fbca-8aa4-4ae3-35442987
-    - secure: FaPs4D9IsIvYSbm4fCXG4SIoB3SXzxWl8E5YhCDbd6q4ty++DxsUrTzdinafgbbMVQSqIhsnjeYPvO6h9JQcWh2enor5OPlFvAZqEw0++wsHfOwkYnO9XoS55isO5dZjw9sm705ymrJDRF8rhyfVzuptWGxZLfTynLR0IzWUUFw=
-
+  - BROWSER_PROVIDER_READY_FILE=/tmp/sauce-connect-ready
+  - LOGS_DIR=/tmp/angular-router-build/logs
+  - SAUCE_USERNAME=angular-ci
+  - SAUCE_ACCESS_KEY=9b988f434ff8-fbca-8aa4-4ae3-35442987
+  - secure: iN9MYhd7RDn8JOQfKHVwKfOJLYSnEXYBt33xMhC+Q0xBNIFr516DiaWfQ0MWTsPmJThl7SJylDc+YdHX64SXEFEMsCSzksqVUddOUuc/JHlPG943ypkab1RgYCbVJ+qoppd5UXhsejSuivuY1Io4/i7mMFkP5LaM43F0ZPO67eo=
 install:
-  - mkdir -p $LOGS_DIR
-  - ./scripts/sauce_connect_setup.sh
-  - npm install
-  - npm install -g gulp
-  - npm install -g karma-cli
-  - ./scripts/wait_for_browser_provider.sh
-
+- mkdir -p $LOGS_DIR
+- "./scripts/sauce_connect_setup.sh"
+- npm install
+- npm install -g gulp
+- npm install -g karma-cli
+- "./scripts/wait_for_browser_provider.sh"
 script:
-  - ./scripts/test_on_sauce.sh
-
+- "./scripts/test_on_sauce.sh"
 after_success:
-  - ./scripts/deploy_docs_to_gh_pages.sh
+- "./scripts/deploy_docs_to_gh_pages.sh"
