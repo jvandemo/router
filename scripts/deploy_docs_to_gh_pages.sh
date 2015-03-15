@@ -20,6 +20,7 @@ fi
 mkdir $TEMP_DIRECTORY || exit 1
 gulp dgeni || exit 1
 cp -r ./dist/docs/* $TEMP_DIRECTORY || exit 1
+cp ./docs/*.css $TEMP_DIRECTORY || exit 1
 cp .gitignore $TEMP_DIRECTORY || exit 1
 
 echo "Checking out gh-pages branch"
