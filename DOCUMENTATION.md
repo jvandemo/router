@@ -1,17 +1,21 @@
 # Documentation
 
-The docs are automatically being generated using Travis CI.
+This document describes the process that automatically generates the documentation using Travis CI.
 
-## Overview
+## How it works
 
-Every time a commit is pushed to GitHub, Travis CI starts a build.
+Here's a general overview of how things work:
 
-When the main script has run and tests have passed, the `after_success` key in `travis.yml` launches the `./scripts/deploy_docs_to_gh_pages.sh`.
-
-The script first checks to see if the tag matches `v[0-9]+,[0-9]+,[0-9]+)`:
-
-- If it does **not** match: documentation is not rendered.
-- If it does match: `gulp dgeni` is run and the output is pushed to the `gh-pages` branch.
+1. A commit is pushed to the repository
+2. Travis CI starts a build
+3. Main script runs (run unit tests)
+4. If main script fails, build exits
+5. `./scripts/deploy_docs_to_gh_pages.sh` script is run
+6. If commit message does not contain the string `[build-docs]`, build exits
+7. Output of `gulp dgeni` is committed to gh-pages branch
+8. `docs/*.css` are added to `gh-pages` branch as well
+9. `gh-pages` branch is pushed back to GitHub
+10. GitHub updates statically hosted documentation on `angular.github.io`.
 
 ## Configuration
 
@@ -35,11 +39,11 @@ To add encryped environment variables to your `.travis.yml` file, you can:
 
 ```sh
 $ gem install travis
-$ cd router
-$ travis encrypt GITHUB_TOKEN=secret-token-from-step-1 --add
+$ cd <repository-directory>
+$ travis encrypt GITHUB_TOKEN=<secret-token-from-step-1> --add
 ```
 
-> On Mac OSX you may have to install the latest version of Ruby first: `brew install ruby`.
+> On Mac OS X, if `gem install travis` fails, you may have to install the latest version of Ruby first by running: `brew install ruby`.
 
 This will add a line to the `.travis.yml` file that looks like this:
 
@@ -53,15 +57,27 @@ That's it! Save and commit the updated `.travis.yml` file.
 
 ## Deploying manually
 
-If required, the documentation can also be generated and deployed to GitHub pages manually.
+If required, the documentation can also be generated and deployed to GitHub pages from your local machine.
 
-We now need to specify the GITHUB_TOKEN manually:
+You need to specify the GITHUB_TOKEN manually like this:
 
 ```sh
 $ GITHUB_TOKEN=<github-token> ./scripts/deploy_docs_to_gh_pages.sh
 ```
 
+> **Attention**: It is not recommended to run the deployment script locally if you don't know what you are doing. The scripts is written to run on Travis CI in a VM where code can be deleted without repercussions. Make sure you don't have unsaved work that has not been committed and pushed to GitHub to prevent unwanted code loss in case something goes wrong.
+
 ## Change log
+
+#### 2015-03-15
+
+- added support for commit message filtering
+- updated documentation
+
+#### 2015-03-14
+
+- added dgeni exception handler
+- updated documentation
 
 #### 2015-03-13
 
