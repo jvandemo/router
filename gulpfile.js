@@ -48,7 +48,7 @@ gulp.task('dgeni', function() {
     return dgeni.generate();
   } catch(x) {
     console.log(x.stack);
-    throw x;
+    // throw x;
   }
 });
 
