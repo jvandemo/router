@@ -83,3 +83,7 @@ gulp.task('docs/serve', ['docs'], function() {
   });
 });
 gulp.task('default', ['build', 'docs', 'serve', 'watch']);
+
+process.on('uncaughtException', function(err) {
+  console.log('Caught exception: ' + err);
+});
