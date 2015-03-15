@@ -6,8 +6,17 @@ TEMP_DIRECTORY="/tmp/__temp_static_content"
 CURRENT_COMMIT=`git rev-parse HEAD`
 ORIGIN_URL="https://github.com/jvandemo/router.git"
 ORIGIN_URL_WITH_CREDENTIALS=${ORIGIN_URL/\/\/github.com/\/\/$GITHUB_TOKEN@github.com}
+COMMIT_MESSAGE=`git log --format=%B --no-merges -n 1`
 
-echo "Building new documentation"
+# Check if commit message contains command to build docs
+if echo "$COMMIT_MESSAGE" | grep '\[build-docs\]'
+  then
+    echo "Building new documentation"
+  else
+    echo "No need to rebuild documentation"
+    exit 0
+fi
+
 mkdir $TEMP_DIRECTORY || exit 1
 gulp dgeni || exit 1
 cp -r ./dist/docs/* $TEMP_DIRECTORY || exit 1
