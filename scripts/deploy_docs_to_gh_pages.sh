@@ -4,7 +4,7 @@ echo "Target: gh-pages branch"
 
 TEMP_DIRECTORY="/tmp/__temp_static_content"
 CURRENT_COMMIT=`git rev-parse HEAD`
-ORIGIN_URL="https://github.com/jvandemo/router.git"
+ORIGIN_URL="https://github.com/angular/router.git"
 ORIGIN_URL_WITH_CREDENTIALS=${ORIGIN_URL/\/\/github.com/\/\/$GITHUB_TOKEN@github.com}
 COMMIT_MESSAGE=`git log --format=%B --no-merges -n 1`
 
