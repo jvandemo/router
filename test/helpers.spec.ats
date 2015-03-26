@@ -1,0 +1,134 @@
+import * as helpers from '../src/helpers';
+
+describe('helpers', () => {
+
+  describe('dashCase', () => {
+
+    it('should dasherize camelCase strings correctly', ()  => {
+      expect(helpers.dashCase('camelCaseString')).toEqual('camel-case-string');
+    });
+
+    it('should not change numbers', ()  => {
+      expect(helpers.dashCase('0123456789')).toEqual('0123456789');
+    });
+
+    it('should not change special characters', ()  => {
+      expect(helpers.dashCase('_-.')).toEqual('_-.');
+    });
+
+    it('should not change lowercase characters abcdefghijklmnopqrstuvwxyz', ()  => {
+      expect(helpers.dashCase('abcdefghijklmnopqrstuvwxyz')).toEqual('abcdefghijklmnopqrstuvwxyz');
+    });
+
+    it('should dasherize all uppercase characters ABCDEFGHIJKLMNOPQRSTUVWXYZ', ()  => {
+      expect(helpers.dashCase('ABCDEFGHIJKLMNOPQRSTUVWXYZ')).toEqual('-a-b-c-d-e-f-g-h-i-j-k-l-m-n-o-p-q-r-s-t-u-v-w-x-y-z');
+    });
+
+  });
+
+  describe('copy', () => {
+
+    it('should return a deep copy of an object', ()  => {
+      var obj = {
+        one: "1",
+        two: "2",
+        three: {
+          four: [5, 6]
+        }
+      };
+      expect(helpers.copy(obj)).toEqual(obj);
+      expect(helpers.copy(obj)).not.toBe(obj);
+    });
+
+  });
+
+  describe('notMatched', () => {
+
+    it('should return true if null value is passed', ()  => {
+      expect(helpers.notMatched()).toEqual(true);
+      expect(helpers.notMatched('')).toEqual(true);
+      expect(helpers.notMatched(undefined)).toEqual(true);
+    });
+
+    it('should return true if empty array is passed', ()  => {
+      expect(helpers.notMatched([])).toEqual(true);
+    });
+
+    it('should return false if non-empty array is passed', ()  => {
+      expect(helpers.notMatched([{}])).toEqual(false);
+    });
+
+    it('should return false if object is passed', ()  => {
+      expect(helpers.notMatched({})).toEqual(false);
+    });
+
+  });
+
+  describe('forEach', () => {
+
+    it('should call a function with each key/value pair of an object', ()  => {
+      var obj = {
+        one: "1",
+        two: "2",
+        three: {
+          four: [5, 6]
+        }
+      };
+      var fn = jasmine.createSpy('fn');
+      helpers.forEach(obj, fn);
+      expect(fn).toHaveBeenCalledWith("1", "one");
+      expect(fn).toHaveBeenCalledWith("2", "two");
+      expect(fn).toHaveBeenCalledWith({
+        four: [5, 6]
+      }, "three");
+    });
+
+  });
+
+  describe('mapObj', () => {
+
+    it('should apply a function to each key/value pair of an object', ()  => {
+      var obj = {
+        one: "1",
+        two: "2",
+        three: {
+          four: [5, 6]
+        }
+      };
+      var fn = function(value, key){
+        return {
+          value: value,
+          key: key
+        };
+      }
+      var output = helpers.mapObj(obj, fn);
+      expect(output).toEqual([
+        { value: obj['one'], key: 'one'},
+        { value: obj['two'], key: 'two'},
+        { value: obj['three'], key: 'three'}
+      ])
+    });
+
+  });
+
+  describe('boolToPromise', () => {
+
+    it('should return a resolved promise for truthy arguments', (done)  => {
+      helpers.boolToPromise(true).then(done, null);
+    });
+
+    it('should return a rejected promise for falsy arguments', (done)  => {
+      helpers.boolToPromise(false).then(null, done);
+    });
+
+    it('should pass the original argument to the success handler if truthy', (done)  => {
+      var obj = { one: '1' };
+      helpers.boolToPromise(obj).then(function(value){
+        expect(value).toBe(obj);
+        done();
+      }, null);
+    });
+
+  });
+
+});
